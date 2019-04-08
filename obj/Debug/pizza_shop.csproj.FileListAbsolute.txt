@@ -1,7 +1,6 @@
 C:\Users\Kevin\Csharp\pizza_shop\pizza_shop\bin\Debug\pizza_shop.exe.config
 C:\Users\Kevin\Csharp\pizza_shop\pizza_shop\bin\Debug\pizza_shop.exe
 C:\Users\Kevin\Csharp\pizza_shop\pizza_shop\bin\Debug\pizza_shop.pdb
-C:\Users\Kevin\Csharp\pizza_shop\pizza_shop\obj\Debug\pizza_shop.csprojAssemblyReference.cache
 C:\Users\Kevin\Csharp\pizza_shop\pizza_shop\obj\Debug\pizza_shop.csproj.CoreCompileInputs.cache
 C:\Users\Kevin\Csharp\pizza_shop\pizza_shop\obj\Debug\pizza_shop.exe
 C:\Users\Kevin\Csharp\pizza_shop\pizza_shop\obj\Debug\pizza_shop.pdb

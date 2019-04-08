@@ -34,9 +34,10 @@ namespace pizza_shop
             //normal running
             else
             {
-                Console.WriteLine("money amount: {0}\n", moneyAmount);
+                Console.WriteLine("money amount: {0:c}\n", moneyAmount);
                 float total = 0;
                 
+                //main loop
                 while(true)
                 {
                     displayMenu(menu);
@@ -44,19 +45,18 @@ namespace pizza_shop
                     float priceToAdd = float.Parse(cart[cart.Count - 1][0, 1]);
                     //Console.WriteLine(cart[0][0, 0]); food
                     //Console.WriteLine(cart[0][0, 1]); price
-                    Console.WriteLine(cart.Count);
                     total = total + priceToAdd;
                     Console.WriteLine("Adding total...");
 
                     foreach (string[,] pair in cart)
                     {
-
-                        //Console.WriteLine(pair[0,0]);
-                        Console.WriteLine(pair[0,1]);
+                        //prints all the prices
+                        Console.WriteLine("{0:c}",float.Parse(pair[0,1]));
                     }
-                    Console.WriteLine("Total: {0}\n\n", total);
 
-                    Console.WriteLine("Do you wish to add more to your cart? Enter 1 to continue, 0 to cash out");
+                    Console.WriteLine("Total: {0:c}\n", total);
+
+                    Console.Write("Do you wish to add more to your cart? Enter 1 to continue, 0 to cash out: ");
                     int response = int.Parse(Console.ReadLine());
 
                     while (response != 1 && response != 0)
@@ -72,21 +72,40 @@ namespace pizza_shop
                         if (enoughMoney)
                         {
                             Console.WriteLine("Here is your change!");
-                            Console.WriteLine(remaining);
+                            Console.WriteLine("{0:c}", remaining);
                             break;
                         }
                         else
                         {
-                            Console.WriteLine("not enough money fool");
+                            while (!enoughMoney)
+                            {
+                                Console.WriteLine("Not enough money!");
+                                Console.WriteLine("You only have {0:c}!", moneyAmount);
+                                Console.WriteLine("Please remove some items from cart.");
+                                cart = removeItems(cart);
+
+                                //recalculate total
+                                float newTot = 0;
+
+                                foreach (string[,] pair in cart)
+                                {
+                                    newTot = newTot + float.Parse(pair[0, 1]);
+                                }
+                                Console.WriteLine("Your current total is now {0:c}\n", newTot);
+
+                                remaining = moneyAmount - newTot;
+                                enoughMoney = cashOut(remaining);
+                            }
+                            //you now have enough money, end the loop and cashout
+                            Console.WriteLine("Here is your change!");
+                            Console.WriteLine("{0:c}", remaining);
                             break;
                         }
                     }
                 }
-
                 Console.WriteLine("Thanks for stopping by!");
                 Console.ReadLine();
-            }
-            
+            }   
         }
 
         static void displayGreeting()
@@ -159,6 +178,28 @@ namespace pizza_shop
                 return false;
             }
                 
+        }
+
+        static List<string[,]> removeItems(List<string[,]> cart)
+        {
+            int i = 0;
+            int toRemove;
+
+            foreach (string[,] pair in cart)
+            {
+                ++i;
+                Console.WriteLine("Item {0}: {1} Price: {2}",i, pair[0,0], pair[0,1]);
+            }
+            Console.Write("Enter the item number that you wish to remove: ");
+            toRemove = int.Parse(Console.ReadLine());
+
+            while(toRemove <= 0 || toRemove > i)
+            {
+                Console.Write("Please enter a valid item: ");
+                toRemove = int.Parse(Console.ReadLine());
+            }
+            cart.RemoveAt(toRemove-1);
+            return cart;
         }
     }
 }
